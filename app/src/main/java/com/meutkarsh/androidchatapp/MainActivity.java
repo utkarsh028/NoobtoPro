@@ -53,10 +53,11 @@ public class MainActivity extends AppCompatActivity {
                 user = username.getText().toString();
                 pass = password.getText().toString();
 
-                if(user == null){
+                if(user.equals("")){
                     username.setError("User Name cannot be blank.");
-                }else if(pass == null){
-                    password.setText("Password cannot be blank.");
+                }else if(pass.equals("")){
+                    Toast.makeText(MainActivity.this, "Password cannot be blank.", Toast.LENGTH_SHORT).show();
+                    //password.setText("Password cannot be blank.");
                 }else{
                     String url = "https://androidchatapp-7aaaa.firebaseio.com/users.json";
                     final ProgressDialog pd = new ProgressDialog(MainActivity.this);
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                                             UserDetails.username = user;
                                             UserDetails.password = pass;
                                             Intent i = new Intent(MainActivity.this, Users.class);
+                                            startActivity(i);
                                         }else{
                                             Toast.makeText(MainActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
                                         }
