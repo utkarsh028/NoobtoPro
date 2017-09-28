@@ -18,6 +18,8 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,11 +71,13 @@ public class Chat extends AppCompatActivity {
                 String message = map.get("message").toString();
                 String userName = map.get("user").toString();
 
+                String currentDateTime = DateFormat.getDateTimeInstance().format(new Date());
+
                 if(userName.equals(UserDetails.username)){
-                    addMessageBox("You:-\n" + message, 1);
+                    addMessageBox("You:-\n" + message + "\n" + currentDateTime, 1);
                 }
                 else{
-                    addMessageBox(UserDetails.chatWith + ":-\n" + message, 2);
+                    addMessageBox(UserDetails.chatWith + ":-\n" + message +"\n"+ currentDateTime, 2);
                 }
             }
 

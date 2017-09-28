@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.renderscript.RenderScript;
 
+import java.util.HashMap;
+
 /**
  * Created by aditya on 28/09/17.
  */
@@ -34,12 +36,16 @@ public class SessionManagement {
     }
 
     public boolean isLoggedIn() {
-        return pref.getBoolean(IS_LOGIN, false);
+        return pref.getBoolean(IS_LOGIN, true);
     }
 
     public void checkLogin() {
-        if(!this.isLoggedIn()){
-            Intent i =new Intent(_context, MainActivity.class);
+        if(this.isLoggedIn()){
+            UserDetails.username = pref.getString(KEY_NAME, null);
+            UserDetails.password = pref.getString(KEY_PASSWORD, null);
+            Intent i = new Intent(_context, Users.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             _context.startActivity(i);
         }
     }
@@ -49,5 +55,12 @@ public class SessionManagement {
         editor.commit();
         Intent i = new Intent(_context, MainActivity.class);
         _context.startActivity(i);
+    }
+
+    public HashMap<String, String> getUserDetails() {
+        HashMap<String, String> user = new HashMap<>();
+        user.put(KEY_NAME, pref.getString(KEY_NAME, null));
+        user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
+        return user;
     }
 }

@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         loginButton = (Button)findViewById(R.id.loginButton);
 
         session = new SessionManagement(getApplicationContext());
+        session.checkLogin();
 
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
