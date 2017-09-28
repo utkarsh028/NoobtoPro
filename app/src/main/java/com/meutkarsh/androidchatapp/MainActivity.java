@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     EditText username, password;
     Button loginButton;
     String user, pass;
+    SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
         loginButton = (Button)findViewById(R.id.loginButton);
+
+        session = new SessionManagement(getApplicationContext());
 
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                                         if(userpass.equals(pass)){
                                             UserDetails.username = user;
                                             UserDetails.password = pass;
+                                            session.createLoginSession(user, pass);
                                             Intent i = new Intent(MainActivity.this, Users.class);
                                             startActivity(i);
                                         }else{

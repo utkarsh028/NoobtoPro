@@ -80,6 +80,10 @@ public class Register extends AppCompatActivity {
                             if(response.equals("null")) {
                                 reference.child(user).child("password").setValue(pass);
                                 Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
+                                UserDetails.username = user;
+                                UserDetails.password = pass;
+                                Intent i = new Intent(Register.this, Users.class);
+                                startActivity(i);
                             } else {
                                 try {
                                     JSONObject obj = new JSONObject(response);
@@ -87,6 +91,10 @@ public class Register extends AppCompatActivity {
                                     if (!obj.has(user)) {
                                         reference.child(user).child("password").setValue(pass);
                                         Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
+                                        UserDetails.username = user;
+                                        UserDetails.password = pass;
+                                        Intent i = new Intent(Register.this, Users.class);
+                                        startActivity(i);
                                     } else {
                                         Toast.makeText(Register.this, "username already exists", Toast.LENGTH_LONG).show();
                                     }
