@@ -116,7 +116,7 @@ public class Users extends AppCompatActivity {
         switch (id){
             case R.id.logout:
                 session.logoutUser();
-                Toast.makeText(this, "Loging out...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Login to enter.", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 Toast.makeText(this, "Wrong item selected", Toast.LENGTH_SHORT).show();

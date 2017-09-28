@@ -32,6 +32,7 @@ public class Register extends AppCompatActivity {
     Button registerButton;
     String user, pass;
     TextView login;
+    SessionManagement session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class Register extends AppCompatActivity {
         registerButton = (Button)findViewById(R.id.registerButton);
         login = (TextView)findViewById(R.id.login);
         Firebase.setAndroidContext(this);
+
+        session = new SessionManagement(getApplicationContext());
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +85,7 @@ public class Register extends AppCompatActivity {
                                 Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
                                 UserDetails.username = user;
                                 UserDetails.password = pass;
+                                session.createLoginSession(user, pass);
                                 Intent i = new Intent(Register.this, Users.class);
                                 startActivity(i);
                             } else {
@@ -93,6 +97,7 @@ public class Register extends AppCompatActivity {
                                         Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
                                         UserDetails.username = user;
                                         UserDetails.password = pass;
+                                        session.createLoginSession(user, pass);
                                         Intent i = new Intent(Register.this, Users.class);
                                         startActivity(i);
                                     } else {
