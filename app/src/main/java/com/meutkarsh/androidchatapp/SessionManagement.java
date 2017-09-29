@@ -36,7 +36,7 @@ public class SessionManagement {
     }
 
     public boolean isLoggedIn() {
-        return pref.getBoolean(IS_LOGIN, true);
+        return pref.getBoolean(IS_LOGIN, false);
     }
 
     public void checkLogin() {
@@ -54,6 +54,8 @@ public class SessionManagement {
         editor.clear();
         editor.commit();
         Intent i = new Intent(_context, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         _context.startActivity(i);
     }
 
