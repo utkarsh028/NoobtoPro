@@ -3,7 +3,6 @@ package com.meutkarsh.androidchatapp;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 
 import java.util.ArrayList;
 
@@ -12,8 +11,8 @@ import java.util.ArrayList;
  */
 
 public class CustomPagerAdapter extends FragmentPagerAdapter {
-    ArrayList<Fragment> fragmentArrayList=new ArrayList<>();
-    ArrayList<String> fragmentTilteArr=new ArrayList<>();
+    ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+    ArrayList<String> fragmentTilteArr = new ArrayList<>();
     public CustomPagerAdapter(FragmentManager fm) {
         super(fm);
     }

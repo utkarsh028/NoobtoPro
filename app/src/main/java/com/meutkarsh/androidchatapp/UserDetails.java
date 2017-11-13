@@ -5,7 +5,7 @@ package com.meutkarsh.androidchatapp;
  */
 
 public class UserDetails extends Object {
-    static String username = "";
-    static String password = "";
-    static String chatWith = "";
+    public static String username = "";
+    public static String password = "";
+    public static String chatWith = "";
 }
