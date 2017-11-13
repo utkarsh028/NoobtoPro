@@ -3,5 +3,7 @@
 
     <item android:title = "Log out"
         android:id = "@+id/logout"></item>
+    <item android:title="Statistics"
+        android:id="@+id/stats"></item>
 
 </menu>
