@@ -49,11 +49,12 @@ public class Users extends AppCompatActivity {
                 Toast.makeText(this, "Login to enter.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.stats:
-                Intent i = new Intent(Users.this,DjangoServerActivity.class);
+                Intent i = new Intent(Users.this, DjangoServerActivity.class);
                 startActivity(i);
                 break;
             default:
                 Toast.makeText(this, "Wrong item selected", Toast.LENGTH_SHORT).show();
+                break;
         }
         return true;
     }

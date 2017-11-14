@@ -6,16 +6,19 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ScrollView
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/userProblemRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="260dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/userProblemRV"
-            android:layout_width="match_parent"
-            android:layout_height="500dp" />
-
-
-    </ScrollView>
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/piechart"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
