@@ -1,6 +1,7 @@
 package com.meutkarsh.androidchatapp.Fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +35,6 @@ import java.util.ArrayList;
  * Created by tanay on 12/11/17.
  */
 
-
 public class UserStatsFragment extends Fragment {
 
     RecyclerView questionRecyclerView;
@@ -42,7 +42,8 @@ public class UserStatsFragment extends Fragment {
     RequestQueue requestQueue;
     QuestionAdapter questionAdapter;
     PieChart pieChart;
-    public UserStatsFragment() {// Required empty public constructor
+    FloatingActionButton floatingActionButton;
+    public UserStatsFragment() {
     }
 
     @Override
@@ -50,6 +51,7 @@ public class UserStatsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_user_stats, container, false);
         questionRecyclerView = (RecyclerView) rootView.findViewById(R.id.userProblemRV);
         pieChart = (PieChart) rootView.findViewById(R.id.piechart);
+        floatingActionButton = (FloatingActionButton) rootView.findViewById(R.id.floatbutton);
 
         return rootView;
     }
@@ -65,10 +67,10 @@ public class UserStatsFragment extends Fragment {
         questions = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
-        // Initialize a new JsonArrayRequest instance
+        String url = "http://192.168.43.190:8000/cp/spoj/handle=ty_samurai97&uname=tanay";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                "http://192.168.43.190:8000/cp/spoj/handle=ty_samurai97&uname=tanay",
+                url,
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -118,12 +120,12 @@ public class UserStatsFragment extends Fragment {
 
         ArrayList<PieEntry> entries= new ArrayList<>();
 
-        entries.add( new PieEntry(solved ) );
-        entries.add( new PieEntry(unsolved  ));
+        entries.add( new PieEntry(unsolved ) );
+        entries.add( new PieEntry(solved  ));
         PieDataSet set = new PieDataSet(entries, "Problem Status");
+        set.setColors(new int[] {R.color.red,R.color.green});
 //        set.setColor(R.color.red);
         PieData data = new PieData(set);
         pieChart.setData(data);
-
     }
 }

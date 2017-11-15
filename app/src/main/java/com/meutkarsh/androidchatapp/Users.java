@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.meutkarsh.androidchatapp.Fragments.UserStatsFragment;
+
 /**
  * Created by utkarsh on 27/9/17.
  */
@@ -30,6 +32,8 @@ public class Users extends AppCompatActivity {
 
         session = new SessionManagement(getApplicationContext());
 
+        userTab.setupWithViewPager(userViewPager);
+        setViewPager(userViewPager);
     }
 
 
@@ -48,10 +52,6 @@ public class Users extends AppCompatActivity {
                 session.logoutUser();
                 Toast.makeText(this, "Login to enter.", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.stats:
-                Intent i = new Intent(Users.this, DjangoServerActivity.class);
-                startActivity(i);
-                break;
             default:
                 Toast.makeText(this, "Wrong item selected", Toast.LENGTH_SHORT).show();
                 break;
@@ -62,9 +62,11 @@ public class Users extends AppCompatActivity {
     public void setViewPager(ViewPager vp){
         CustomPagerAdapter cpa = new CustomPagerAdapter(getSupportFragmentManager());
 
+//        UserStatsFragment userStatsFragment = new UserStatsFragment();
         //ClassName cn = new ClassName();
         //cpa.addFrag(cn, "title")
 
+//        cpa.addFrag(userStatsFragment,"Statistics");
         vp.setAdapter(cpa);
     }
 }

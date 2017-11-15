@@ -21,7 +21,6 @@
         <activity android:name=".Register" />
         <activity android:name=".Users" />
         <activity android:name=".Chat" />
-        <activity android:name=".DjangoServerActivity"></activity>
     </application>
 
 </manifest>
