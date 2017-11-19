@@ -9,7 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.meutkarsh.androidchatapp.Fragments.UserStatsFragment;
+import com.meutkarsh.androidchatapp.Fragments.BlogFragment;
+import com.meutkarsh.androidchatapp.Fragments.UserFragment;
 
 /**
  * Created by utkarsh on 27/9/17.
@@ -62,11 +63,23 @@ public class Users extends AppCompatActivity {
     public void setViewPager(ViewPager vp){
         CustomPagerAdapter cpa = new CustomPagerAdapter(getSupportFragmentManager());
 
-//        UserStatsFragment userStatsFragment = new UserStatsFragment();
+        UserFragment userFragment = new UserFragment();
+        cpa.addFrag(userFragment,"Users Available");
         //ClassName cn = new ClassName();
         //cpa.addFrag(cn, "title")
 
-//        cpa.addFrag(userStatsFragment,"Statistics");
+        BlogFragment blogFragment = new BlogFragment();
+        cpa.addFrag(blogFragment, "Blogs");
+
         vp.setAdapter(cpa);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Bye...", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(Intent.ACTION_MAIN);
+        i.addCategory(Intent.CATEGORY_HOME);
+        startActivity(i);
+
     }
 }

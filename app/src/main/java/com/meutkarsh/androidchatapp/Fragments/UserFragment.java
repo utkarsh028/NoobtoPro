@@ -1,10 +1,10 @@
 package com.meutkarsh.androidchatapp.Fragments;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +31,7 @@ import java.util.Iterator;
 
 public class UserFragment extends Fragment {
 
-    Context context = getActivity();
+    //Context context = UserFragment.super.getContext();
 
     ListView usersList;
     TextView noUsersText;
@@ -55,7 +55,10 @@ public class UserFragment extends Fragment {
 
         usersList = (ListView)rootView.findViewById(R.id.users_list);
         noUsersText = (TextView)rootView.findViewById(R.id.no_users_text);
-        pd = new ProgressDialog(context);
+
+        pd = new ProgressDialog(UserFragment.super.getContext());
+        Log.i("Utkarsh", "Testing after context");
+
         pd.setMessage("Loading...");
         pd.show();
         String url = "https://androidchatapp-7aaaa.firebaseio.com/users.json";
@@ -72,14 +75,16 @@ public class UserFragment extends Fragment {
             }
         });
 
-        RequestQueue rQ = Volley.newRequestQueue(context);
+        Log.d("Utkarsh", "After Volley");
+
+        RequestQueue rQ = Volley.newRequestQueue(UserFragment.super.getContext());
         rQ.add(request);
 
         usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserDetails.chatWith = al.get(position);
-                Intent i = new Intent(context, Chat.class);
+                Intent i = new Intent(UserFragment.super.getContext(), Chat.class);
                 startActivity(i);
             }
         });
@@ -106,7 +111,7 @@ public class UserFragment extends Fragment {
         } else {
             noUsersText.setVisibility(View.GONE);
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, al));
+            usersList.setAdapter(new ArrayAdapter<String>(UserFragment.super.getContext(), android.R.layout.simple_list_item_1, al));
         }
         pd.dismiss();
     }

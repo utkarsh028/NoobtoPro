@@ -1,7 +1,6 @@
 package com.meutkarsh.androidchatapp;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -54,8 +53,11 @@ public class Chat extends AppCompatActivity {
             public void onClick(View view) {
                 String messageText = messageArea.getText().toString();
                 if(!messageText.equals("")){
+
+                    String currentDateTime = DateFormat.getDateTimeInstance().format(new Date());
+
                     Map<String, String> map = new HashMap<String, String>();
-                    map.put("message", messageText);
+                    map.put("message", messageText +"\n"+ currentDateTime);
                     map.put("user", UserDetails.username);
                     reference1.push().setValue(map);
                     reference2.push().setValue(map);
@@ -71,13 +73,11 @@ public class Chat extends AppCompatActivity {
                 String message = map.get("message").toString();
                 String userName = map.get("user").toString();
 
-                String currentDateTime = DateFormat.getDateTimeInstance().format(new Date());
-
                 if(userName.equals(UserDetails.username)){
-                    addMessageBox("You:-\n" + message + "\n" + currentDateTime, 1);
+                    addMessageBox("You:-\n" + message, 1);
                 }
                 else{
-                    addMessageBox(UserDetails.chatWith + ":-\n" + message +"\n"+ currentDateTime, 2);
+                    addMessageBox(UserDetails.chatWith + ":-\n" + message, 2);
                 }
             }
 
