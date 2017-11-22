@@ -1,9 +1,8 @@
-package com.meutkarsh.androidchatapp;
+package com.meutkarsh.androidchatapp.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +17,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.firebase.client.Firebase;
+import com.meutkarsh.androidchatapp.R;
+import com.meutkarsh.androidchatapp.Utils.SessionManagement;
+import com.meutkarsh.androidchatapp.POJO.UserDetails;
 
 import org.json.JSONException;
 import org.json.JSONObject;

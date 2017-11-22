@@ -19,9 +19,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.meutkarsh.androidchatapp.Chat;
+import com.meutkarsh.androidchatapp.Activities.Chat;
 import com.meutkarsh.androidchatapp.R;
-import com.meutkarsh.androidchatapp.UserDetails;
+import com.meutkarsh.androidchatapp.POJO.UserDetails;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,8 +57,6 @@ public class UserFragment extends Fragment {
         noUsersText = (TextView)rootView.findViewById(R.id.no_users_text);
 
         pd = new ProgressDialog(UserFragment.super.getContext());
-        Log.i("Utkarsh", "Testing after context");
-
         pd.setMessage("Loading...");
         pd.show();
         String url = "https://androidchatapp-7aaaa.firebaseio.com/users.json";

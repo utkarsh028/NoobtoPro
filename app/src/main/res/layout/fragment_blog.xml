@@ -38,17 +38,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="20">
 
-                <ScrollView
+                <ListView
+                    android:id="@+id/que_list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:id="@+id/blog_list"></LinearLayout>
-
-                </ScrollView>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></ListView>
             </LinearLayout>
 
         </LinearLayout>

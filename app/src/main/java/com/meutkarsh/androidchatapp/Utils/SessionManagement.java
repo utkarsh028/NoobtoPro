@@ -1,9 +1,12 @@
-package com.meutkarsh.androidchatapp;
+package com.meutkarsh.androidchatapp.Utils;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.renderscript.RenderScript;
+
+import com.meutkarsh.androidchatapp.Activities.MainActivity;
+import com.meutkarsh.androidchatapp.Activities.Users;
+import com.meutkarsh.androidchatapp.POJO.UserDetails;
 
 import java.util.HashMap;
 

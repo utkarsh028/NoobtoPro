@@ -1,4 +1,4 @@
-package com.meutkarsh.androidchatapp;
+package com.meutkarsh.androidchatapp.POJO;
 
 /**
  * Created by utkarsh on 26/9/17.

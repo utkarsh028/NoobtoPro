@@ -9,7 +9,7 @@
     android:paddingRight="20dp"
     android:paddingTop="20dp"
     android:orientation="vertical"
-    tools:context="com.meutkarsh.androidchatapp.MainActivity">
+    tools:context="com.meutkarsh.androidchatapp.Activities.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"

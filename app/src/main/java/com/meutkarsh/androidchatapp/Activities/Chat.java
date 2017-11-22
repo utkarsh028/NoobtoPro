@@ -1,4 +1,4 @@
-package com.meutkarsh.androidchatapp;
+package com.meutkarsh.androidchatapp.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.meutkarsh.androidchatapp.R;
+import com.meutkarsh.androidchatapp.POJO.UserDetails;
 
 import java.text.DateFormat;
 import java.util.Date;

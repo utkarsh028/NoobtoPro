@@ -1,4 +1,4 @@
-package com.meutkarsh.androidchatapp;
+package com.meutkarsh.androidchatapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.meutkarsh.androidchatapp.Utils.CustomPagerAdapter;
 import com.meutkarsh.androidchatapp.Fragments.BlogFragment;
 import com.meutkarsh.androidchatapp.Fragments.UserFragment;
+import com.meutkarsh.androidchatapp.R;
+import com.meutkarsh.androidchatapp.Utils.SessionManagement;
 
 /**
  * Created by utkarsh on 27/9/17.

@@ -1,4 +1,4 @@
-package com.meutkarsh.androidchatapp;
+package com.meutkarsh.androidchatapp.Utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
