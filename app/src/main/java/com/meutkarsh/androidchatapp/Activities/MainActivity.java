@@ -81,10 +81,14 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(MainActivity.this, "user not found", Toast.LENGTH_SHORT).show();
                                     } else {
                                         String userpass = obj.getJSONObject(user).getString("password");
+                                        String userCF = obj.getJSONObject(user).getString("codeforcesHandle");
+                                        String userCC = obj.getJSONObject(user).getString("codechefHandle");
+                                        String userSP = obj.getJSONObject(user).getString("spojHandle");
+                                        String userEmailId = obj.getJSONObject(user).getString("emailId");
                                         if(userpass.equals(pass)){
                                             UserDetails.username = user;
                                             UserDetails.password = pass;
-                                            session.createLoginSession(user, pass);
+                                            session.createLoginSession(user, pass, userCF, userCC, userSP, userEmailId);
                                             Intent i = new Intent(MainActivity.this, Users.class);
                                             startActivity(i);
                                         }else{

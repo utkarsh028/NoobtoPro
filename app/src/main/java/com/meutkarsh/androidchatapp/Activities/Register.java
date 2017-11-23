@@ -17,12 +17,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.firebase.client.Firebase;
+import com.meutkarsh.androidchatapp.POJO.UserDetails;
 import com.meutkarsh.androidchatapp.R;
 import com.meutkarsh.androidchatapp.Utils.SessionManagement;
-import com.meutkarsh.androidchatapp.POJO.UserDetails;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by utkarsh on 27/9/17.
@@ -30,9 +33,9 @@ import org.json.JSONObject;
 
 public class Register extends AppCompatActivity {
 
-    EditText username, password;
+    EditText username, password, codeforces, codechef, spoj, email;
     Button registerButton;
-    String user, pass;
+    String user, pass, cf, cc, sp, emailId;
     TextView login;
     SessionManagement session;
 
@@ -43,6 +46,12 @@ public class Register extends AppCompatActivity {
 
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
+
+        codeforces = (EditText) findViewById(R.id.codeforces);
+        codechef = (EditText) findViewById(R.id.codechef);
+        spoj = (EditText) findViewById(R.id.spoj);
+        email = (EditText) findViewById(R.id.email_id);
+
         registerButton = (Button)findViewById(R.id.registerButton);
         login = (TextView)findViewById(R.id.login);
         Firebase.setAndroidContext(this);
@@ -63,10 +72,16 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
                 user = username.getText().toString();
                 pass = password.getText().toString();
+                cf = codeforces.getText().toString();
+                cc = codechef.getText().toString();
+                sp = spoj.getText().toString();
+                emailId = email.getText().toString();
                 if(user.equals("")){
                     username.setError("User Name cannot be blank");
                 } else if (pass.equals("")) {
                     password.setError("Password cannot be blank");
+                } else if(emailId.equals("")){
+                    email.setError("Email id cannot be blank");
                 } else if ( !user.matches("[A-Za-z0-9]+") ) {
                     username.setError("Only alphabet or number allowed");
                 } else if (user.length() < 5) {
@@ -74,6 +89,14 @@ public class Register extends AppCompatActivity {
                 } else if (pass.length() < 5) {
                     password.setError("at least 5 characters long");
                 } else {
+                    Pattern emailRegex = Pattern.compile(
+                            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+                    Matcher matcher = emailRegex .matcher(emailId);
+                    if(!matcher.find()){
+                        email.setError("Enter valid email address");
+                        return;
+                    }
+
                     final ProgressDialog pd = new ProgressDialog(Register.this);
                     pd.setMessage("Loading...");
                     pd.show();
@@ -85,10 +108,19 @@ public class Register extends AppCompatActivity {
                             Firebase reference = new Firebase("https://androidchatapp-7aaaa.firebaseio.com/users");
                             if(response.equals("null")) {
                                 reference.child(user).child("password").setValue(pass);
+                                reference.child(user).child("codeforcesHandle").setValue(cf);
+                                reference.child(user).child("codechefHandle").setValue(cc);
+                                reference.child(user).child("spojHandle").setValue(sp);
+                                reference.child(user).child("emailId").setValue(emailId);
                                 Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
                                 UserDetails.username = user;
                                 UserDetails.password = pass;
-                                session.createLoginSession(user, pass);
+                                UserDetails.codeforcesHandle = cf;
+                                UserDetails.codechefHandle = cc;
+                                UserDetails.spojHandle = sp;
+                                UserDetails.emailId = emailId;
+
+                                session.createLoginSession(user, pass, cf, cc, sp, emailId);
                                 Intent i = new Intent(Register.this, Users.class);
                                 startActivity(i);
                             } else {
@@ -97,10 +129,18 @@ public class Register extends AppCompatActivity {
 
                                     if (!obj.has(user)) {
                                         reference.child(user).child("password").setValue(pass);
+                                        reference.child(user).child("codeforcesHandle").setValue(cf);
+                                        reference.child(user).child("codechefHandle").setValue(cc);
+                                        reference.child(user).child("spojHandle").setValue(sp);
+                                        reference.child(user).child("emailId").setValue(emailId);
                                         Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
                                         UserDetails.username = user;
                                         UserDetails.password = pass;
-                                        session.createLoginSession(user, pass);
+                                        UserDetails.codeforcesHandle = cf;
+                                        UserDetails.codechefHandle = cc;
+                                        UserDetails.spojHandle = sp;
+                                        UserDetails.emailId = emailId;
+                                        session.createLoginSession(user, pass, cf, cc, sp, emailId);
                                         Intent i = new Intent(Register.this, Users.class);
                                         startActivity(i);
                                     } else {

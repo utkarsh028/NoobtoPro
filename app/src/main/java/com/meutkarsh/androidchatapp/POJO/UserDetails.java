@@ -8,4 +8,8 @@ public class UserDetails extends Object {
     public static String username = "";
     public static String password = "";
     public static String chatWith = "";
+    public static String codeforcesHandle = "";
+    public static String codechefHandle = "";
+    public static String spojHandle = "";
+    public static String emailId = "";
 }

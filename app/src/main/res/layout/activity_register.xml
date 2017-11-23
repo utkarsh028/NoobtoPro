@@ -14,10 +14,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
-        android:textSize="30dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:layout_marginBottom="20dp"/>
+        android:text="Register"
+        android:textSize="30sp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:id="@+id/username"
         android:inputType="text"
         android:maxLines="1"
-        android:hint="enter username"
+        android:hint="Username"
         android:layout_marginBottom="10dp"/>
 
     <EditText
@@ -34,7 +34,43 @@
         android:id="@+id/password"
         android:inputType="textPassword"
         android:maxLines="1"
-        android:hint="enter password"
+        android:hint="Password"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/codeforces"
+        android:inputType="text"
+        android:maxLines="1"
+        android:hint="Codeforces handle"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/codechef"
+        android:inputType="text"
+        android:maxLines="1"
+        android:hint="Codechef handle"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spoj"
+        android:inputType="text"
+        android:maxLines="1"
+        android:hint="Spoj handle"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email_id"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:hint="Email id"
         android:layout_marginBottom="10dp"/>
 
     <Button
@@ -45,11 +81,11 @@
         android:layout_marginBottom="20dp"/>
 
     <TextView
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click here to login"
-        android:textSize="20dp"
         android:gravity="center"
-        android:id="@+id/login"/>
+        android:text="Back to login"
+        android:textSize="18sp" />
 
 </LinearLayout>

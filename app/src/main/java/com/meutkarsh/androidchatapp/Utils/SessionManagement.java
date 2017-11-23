@@ -24,6 +24,10 @@ public class SessionManagement {
     private static final String IS_LOGIN = "IsLoggedIn";
     private static final String KEY_NAME = "name";
     private static final String KEY_PASSWORD = "pass";
+    private static final String KEY_CF = "codeforces";
+    private static final String KEY_CC = "codechef";
+    private static final String KEY_SP = "spoj";
+    private static final String KEY_EMAIL = "emailId";
 
     public SessionManagement(Context context) {
         this._context = context;
@@ -31,10 +35,14 @@ public class SessionManagement {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String name, String pass) {
+    public void createLoginSession(String name, String pass, String cf, String cc, String sp, String email) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_PASSWORD, pass);
+        editor.putString(KEY_CF, cf);
+        editor.putString(KEY_CC, cc);
+        editor.putString(KEY_SP, sp);
+        editor.putString(KEY_EMAIL, email);
         editor.commit();
     }
 
@@ -46,6 +54,10 @@ public class SessionManagement {
         if(this.isLoggedIn()){
             UserDetails.username = pref.getString(KEY_NAME, null);
             UserDetails.password = pref.getString(KEY_PASSWORD, null);
+            UserDetails.codeforcesHandle = pref.getString(KEY_CF, null);
+            UserDetails.codechefHandle = pref.getString(KEY_CC, null);
+            UserDetails.spojHandle = pref.getString(KEY_SP, null);
+            UserDetails.emailId = pref.getString(KEY_EMAIL, null);
             Intent i = new Intent(_context, Users.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -66,6 +78,10 @@ public class SessionManagement {
         HashMap<String, String> user = new HashMap<>();
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
         user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
+        user.put(KEY_CF, pref.getString(KEY_CF, null));
+        user.put(KEY_CC, pref.getString(KEY_CC, null));
+        user.put(KEY_SP, pref.getString(KEY_SP, null));
+        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
         return user;
     }
 }
