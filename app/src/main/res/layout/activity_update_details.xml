@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="20dp"
-    tools:context="com.meutkarsh.androidchatapp.Activities.MainActivity"
+    android:padding="20dp"
+    tools:context="com.meutkarsh.androidchatapp.Activities.UpdateDetails"
     android:orientation="vertical"
     android:gravity="center">
 
@@ -16,26 +14,26 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="Register"
+        android:text="Update Details"
         android:textSize="30sp"
         android:textStyle="bold"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/username"
-        android:inputType="text"
+        android:id="@+id/old_password"
+        android:inputType="textPassword"
         android:maxLines="1"
-        android:hint="Username"
+        android:hint="Old Password"
         android:layout_marginBottom="10dp"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/password"
+        android:id="@+id/new_password"
         android:inputType="textPassword"
         android:maxLines="1"
-        android:hint="Password"
+        android:hint="New Password"
         android:layout_marginBottom="10dp"/>
 
     <EditText
@@ -77,16 +75,15 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/registerButton"
+        android:text="Update"
+        android:id="@+id/update"
         android:layout_marginBottom="20dp"/>
 
     <TextView
-        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Back to login"
+        android:text="Please enter old password and the fields you want to update."
         android:textSize="18sp" />
 
 </LinearLayout>

@@ -80,10 +80,11 @@ public class BlogFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d("Utkarsh", "add new blog");
-                String blogEntry = newBlog.getText().toString();
+                String blogEntry = newBlog.getText().toString().trim();
 
-                int z = blogEntry.length();
-                if(blogEntry.charAt(z-1) == '?')    blogEntry = blogEntry.substring(0, z-1);
+                int z = blogEntry.length() - 1;
+                while(blogEntry.charAt(z) == '?')   z--;
+                blogEntry = blogEntry.substring(0, z+1);
 
                 if(blogEntry.length() < 5){
                     Toast.makeText(BlogFragment.super.getContext(), "Enter more details...", Toast.LENGTH_SHORT).show();
