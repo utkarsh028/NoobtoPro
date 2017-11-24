@@ -52,6 +52,10 @@ public class Users extends AppCompatActivity {
 
         int id = item.getItemId();
         switch (id){
+            case R.id.update:
+                Intent i = new Intent(Users.this, UpdateDetails.class);
+                startActivity(i);
+                break;
             case R.id.logout:
                 session.logoutUser();
                 Toast.makeText(this, "Login to enter.", Toast.LENGTH_SHORT).show();
