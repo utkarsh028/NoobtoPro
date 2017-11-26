@@ -102,7 +102,8 @@ public class UpdateDetails extends AppCompatActivity {
                             UserDetails.spojHandle = sp;
                             UserDetails.emailId = emailId;
 
-                            session.createLoginSession(user, newPass, cf, cc, sp, emailId);
+                            session.createLoginSession(user, newPass, cf, cc, sp, emailId,
+                                    UserDetails.codeforcesRating, UserDetails.codechefRating, UserDetails.spojRank);
                             Intent i = new Intent(UpdateDetails.this, Users.class);
                             startActivity(i);
 

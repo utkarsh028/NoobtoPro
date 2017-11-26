@@ -28,6 +28,9 @@ public class SessionManagement {
     private static final String KEY_CC = "codechef";
     private static final String KEY_SP = "spoj";
     private static final String KEY_EMAIL = "emailId";
+    private static final String KEY_CF_RATING = "codeforcesRating";
+    private static final String KEY_CC_RATING = "codechefRating";
+    private static final String KEY_SP_RANK = "spojRank";
 
     public SessionManagement(Context context) {
         this._context = context;
@@ -35,7 +38,8 @@ public class SessionManagement {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String name, String pass, String cf, String cc, String sp, String email) {
+    public void createLoginSession(String name, String pass, String cf, String cc, String sp,
+                                   String email, String cfRating, String ccRating, String spjRank) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_PASSWORD, pass);
@@ -43,6 +47,9 @@ public class SessionManagement {
         editor.putString(KEY_CC, cc);
         editor.putString(KEY_SP, sp);
         editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_CF_RATING, cfRating);
+        editor.putString(KEY_CC_RATING, ccRating);
+        editor.putString(KEY_SP_RANK, spjRank);
         editor.commit();
     }
 
@@ -58,6 +65,9 @@ public class SessionManagement {
             UserDetails.codechefHandle = pref.getString(KEY_CC, null);
             UserDetails.spojHandle = pref.getString(KEY_SP, null);
             UserDetails.emailId = pref.getString(KEY_EMAIL, null);
+            UserDetails.codeforcesRating = pref.getString(KEY_CF_RATING, null);
+            UserDetails.codechefRating = pref.getString(KEY_CC_RATING, null);
+            UserDetails.spojRank = pref.getString(KEY_SP_RANK, null);
             Intent i = new Intent(_context, Users.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -82,6 +92,9 @@ public class SessionManagement {
         user.put(KEY_CC, pref.getString(KEY_CC, null));
         user.put(KEY_SP, pref.getString(KEY_SP, null));
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+        user.put(KEY_CF_RATING, pref.getString(KEY_CF_RATING, null));
+        user.put(KEY_CC_RATING, pref.getString(KEY_CC_RATING, null));
+        user.put(KEY_SP_RANK, pref.getString(KEY_SP_RANK, null));
         return user;
     }
 }

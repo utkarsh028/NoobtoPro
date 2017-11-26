@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +15,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.firebase.client.Firebase;
+import com.google.gson.Gson;
+import com.meutkarsh.androidchatapp.POJO.Ratings;
 import com.meutkarsh.androidchatapp.POJO.UserDetails;
 import com.meutkarsh.androidchatapp.R;
 import com.meutkarsh.androidchatapp.Utils.SessionManagement;
@@ -38,6 +42,7 @@ public class Register extends AppCompatActivity {
     String user, pass, cf, cc, sp, emailId;
     TextView login;
     SessionManagement session;
+    Ratings  ratings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +112,9 @@ public class Register extends AppCompatActivity {
                         public void onResponse(String response) {
                             Firebase reference = new Firebase("https://androidchatapp-7aaaa.firebaseio.com/users");
                             if(response.equals("null")) {
+
+                                //handle validation
+
                                 reference.child(user).child("password").setValue(pass);
                                 reference.child(user).child("codeforcesHandle").setValue(cf);
                                 reference.child(user).child("codechefHandle").setValue(cc);
@@ -120,7 +128,10 @@ public class Register extends AppCompatActivity {
                                 UserDetails.spojHandle = sp;
                                 UserDetails.emailId = emailId;
 
-                                session.createLoginSession(user, pass, cf, cc, sp, emailId);
+                                djangoConnect(reference);
+
+                                session.createLoginSession(user, pass, cf, cc, sp, emailId,
+                                        UserDetails.codeforcesRating, UserDetails.codechefRating, UserDetails.spojRank);
                                 Intent i = new Intent(Register.this, Users.class);
                                 startActivity(i);
                             } else {
@@ -128,6 +139,9 @@ public class Register extends AppCompatActivity {
                                     JSONObject obj = new JSONObject(response);
 
                                     if (!obj.has(user)) {
+
+                                        //handle validation
+
                                         reference.child(user).child("password").setValue(pass);
                                         reference.child(user).child("codeforcesHandle").setValue(cf);
                                         reference.child(user).child("codechefHandle").setValue(cc);
@@ -140,7 +154,11 @@ public class Register extends AppCompatActivity {
                                         UserDetails.codechefHandle = cc;
                                         UserDetails.spojHandle = sp;
                                         UserDetails.emailId = emailId;
-                                        session.createLoginSession(user, pass, cf, cc, sp, emailId);
+
+                                        djangoConnect(reference);
+
+                                        session.createLoginSession(user, pass, cf, cc, sp, emailId,
+                                                UserDetails.codeforcesRating, UserDetails.codechefRating, UserDetails.spojRank);
                                         Intent i = new Intent(Register.this, Users.class);
                                         startActivity(i);
                                     } else {
@@ -168,5 +186,45 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    void djangoConnect(final Firebase reference){
+        final Gson gson = new Gson();
+
+        //IP of aditya ambikesh for net
+        String url = "http://192.168.43.190:8000/cp/register/?uname=" + UserDetails.username +
+                "&spjHandle=" + UserDetails.spojHandle + "&cfHandle=" + UserDetails.codeforcesHandle +
+                "&ccHandle=" + UserDetails.codechefHandle;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try{
+                            ratings = gson.fromJson(response.toString(), Ratings.class);
+                            UserDetails.codeforcesRating = ratings.getCfRating();
+                            UserDetails.codechefRating = ratings.getCcRating();
+                            UserDetails.spojRank = ratings.getSpjRating();
+                            reference.child(user).child("codeforcesRating").setValue(UserDetails.codeforcesRating);
+                            reference.child(user).child("codechefRating").setValue(UserDetails.codechefRating);
+                            reference.child(user).child("spojRank").setValue(UserDetails.spojRank);
+
+                            Toast.makeText(Register.this, response.toString(), Toast.LENGTH_LONG).show();
+
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.d("TAG","onError");
+                    }
+                }
+        );
+        RequestQueue rQ = Volley.newRequestQueue(Register.this);
+        rQ.add(jsonObjectRequest);
     }
 }

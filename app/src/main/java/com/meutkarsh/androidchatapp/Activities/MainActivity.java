@@ -85,10 +85,13 @@ public class MainActivity extends AppCompatActivity {
                                         String userCC = obj.getJSONObject(user).getString("codechefHandle");
                                         String userSP = obj.getJSONObject(user).getString("spojHandle");
                                         String userEmailId = obj.getJSONObject(user).getString("emailId");
+                                        String userCfRating = obj.getJSONObject(user).getString("codeforcesRating");
+                                        String userCcRating = obj.getJSONObject(user).getString("codechefRating");
+                                        String userSpjRank = obj.getJSONObject(user).getString("spojRank");
                                         if(userpass.equals(pass)){
                                             UserDetails.username = user;
                                             UserDetails.password = pass;
-                                            session.createLoginSession(user, pass, userCF, userCC, userSP, userEmailId);
+                                            session.createLoginSession(user, pass, userCF, userCC, userSP, userEmailId, userCfRating, userCcRating, userSpjRank);
                                             Intent i = new Intent(MainActivity.this, Users.class);
                                             startActivity(i);
                                         }else{

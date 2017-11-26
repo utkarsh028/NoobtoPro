@@ -12,4 +12,7 @@ public class UserDetails extends Object {
     public static String codechefHandle = "";
     public static String spojHandle = "";
     public static String emailId = "";
+    public static String codeforcesRating = "";
+    public static String codechefRating = "";
+    public static String spojRank = "";
 }
