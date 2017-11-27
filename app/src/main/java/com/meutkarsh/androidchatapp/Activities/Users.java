@@ -23,7 +23,6 @@ public class Users extends AppCompatActivity {
 
     TabLayout userTab;
     ViewPager userViewPager;
-
     SessionManagement session;
 
     @Override
@@ -87,6 +86,5 @@ public class Users extends AppCompatActivity {
         Intent i = new Intent(Intent.ACTION_MAIN);
         i.addCategory(Intent.CATEGORY_HOME);
         startActivity(i);
-
     }
 }
