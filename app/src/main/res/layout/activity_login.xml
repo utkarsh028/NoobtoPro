@@ -17,7 +17,7 @@
         android:text="Login"
         android:textSize="30dp"
         android:gravity="center"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         android:textStyle="bold"/>
 
     <EditText
@@ -27,7 +27,9 @@
         android:inputType="text"
         android:maxLines="1"
         android:hint="enter username"
-        android:layout_marginBottom="10dp"/>
+        android:textSize="25sp"
+        android:layout_marginBottom="10dp"
+        style="@style/editTextStyle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -36,14 +38,17 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:hint="enter password"
-        android:layout_marginBottom="10dp"/>
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        style="@style/editTextStyle"/>
 
     <Button
+        android:id="@+id/loginButton"
+        style="@style/Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/loginButton"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:text="Login" />
 
     <TextView
         android:layout_width="match_parent"

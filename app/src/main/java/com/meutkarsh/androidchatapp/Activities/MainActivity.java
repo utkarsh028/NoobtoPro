@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,13 +86,15 @@ public class MainActivity extends AppCompatActivity {
                                         String userCC = obj.getJSONObject(user).getString("codechefHandle");
                                         String userSP = obj.getJSONObject(user).getString("spojHandle");
                                         String userEmailId = obj.getJSONObject(user).getString("emailId");
-                                        String userCfRating = obj.getJSONObject(user).getString("codeforcesRating");
-                                        String userCcRating = obj.getJSONObject(user).getString("codechefRating");
-                                        String userSpjRank = obj.getJSONObject(user).getString("spojRank");
+                                        String userCfRating = ""; //obj.getJSONObject(user).getString("codeforcesRating");
+                                        String userCcRating = ""; //obj.getJSONObject(user).getString("codechefRating");
+                                        String userSpjRank = ""; //obj.getJSONObject(user).getString("spojRank");
+                                        Log.d("Utkarsh", "Login");
                                         if(userpass.equals(pass)){
                                             UserDetails.username = user;
                                             UserDetails.password = pass;
-                                            session.createLoginSession(user, pass, userCF, userCC, userSP, userEmailId, userCfRating, userCcRating, userSpjRank);
+                                            session.createLoginSession(user, pass, userCF, userCC, userSP, userEmailId,
+                                                    userCfRating, userCcRating, userSpjRank);
                                             Intent i = new Intent(MainActivity.this, Users.class);
                                             startActivity(i);
                                         }else{
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     }
                                 } catch (JSONException e) {
+                                    Log.d("Utkarsh", "Login Error");
                                     e.printStackTrace();
                                 }
                             }

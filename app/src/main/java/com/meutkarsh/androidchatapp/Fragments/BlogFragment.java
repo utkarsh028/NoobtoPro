@@ -1,6 +1,8 @@
 package com.meutkarsh.androidchatapp.Fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -91,14 +93,37 @@ public class BlogFragment extends Fragment {
                     return;
                 }
 
-                String queUrl = "https://androidchatapp-7aaaa.firebaseio.com/questions/" +blogEntry;
-                Firebase queReference = new Firebase(queUrl);
-                queReference.push().setValue("currently unanswered!");
+                int exist = questions.indexOf(blogEntry + '?');
+                if(exist != -1){
+                    Intent intent = new Intent(BlogFragment.super.getContext(), Answers.class);
+                    intent.putExtra("Question", blogEntry);
+                    startActivity(intent);
+                }else {
+                    AlertDialog.Builder adb = new AlertDialog.Builder(BlogFragment.super.getContext());
+                    adb.setCancelable(false);
+                    adb.setTitle("Add new blog");
+                    adb.setMessage("This blog is not present in the database, would you like to add it.");
+                    final String finalBlogEntry = blogEntry;
+                    adb.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String queUrl = "https://androidchatapp-7aaaa.firebaseio.com/questions/" + finalBlogEntry;
+                            Firebase queReference = new Firebase(queUrl);
+                            queReference.push().setValue("currently unanswered!");
 
-                blogReference.push().setValue(blogEntry);
-                newBlog.setText("");
+                            blogReference.push().setValue(finalBlogEntry);
+                            newBlog.setText("");
+                            questions.add(finalBlogEntry + '?');
+                        }
+                    });
+                    adb.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                questions.add(blogEntry + '?');
+                        }
+                    });
+                    adb.show();
+                }
             }
         });
 

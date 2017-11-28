@@ -27,7 +27,9 @@
         android:inputType="text"
         android:maxLines="1"
         android:hint="Username"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="25sp"
+        style="@style/editTextStyle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -36,7 +38,9 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:hint="Password"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+        style="@style/editTextStyle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -45,7 +49,9 @@
         android:inputType="text"
         android:maxLines="1"
         android:hint="Codeforces handle"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="25sp"
+        style="@style/editTextStyle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -54,7 +60,9 @@
         android:inputType="text"
         android:maxLines="1"
         android:hint="Codechef handle"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="25sp"
+        style="@style/editTextStyle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -63,7 +71,9 @@
         android:inputType="text"
         android:maxLines="1"
         android:hint="Spoj handle"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="25sp"
+        style="@style/editTextStyle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -72,14 +82,17 @@
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:hint="Email id"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="25sp"
+        style="@style/editTextStyle"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/registerButton"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        style="@style/Button"/>
 
     <TextView
         android:id="@+id/login"
@@ -87,6 +100,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Back to login"
-        android:textSize="18sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>

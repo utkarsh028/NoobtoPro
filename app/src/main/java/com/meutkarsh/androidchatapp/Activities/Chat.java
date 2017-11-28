@@ -20,7 +20,7 @@ import com.meutkarsh.androidchatapp.Utils.SessionManagement;
  * Created by utkarsh on 27/9/17.
  */
 
-public class Chat extends AppCompatActivity { 
+public class Chat extends AppCompatActivity {
 
     TabLayout userTab;
     ViewPager userViewPager;
