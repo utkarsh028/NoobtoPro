@@ -1,5 +1,6 @@
 package com.meutkarsh.androidchatapp.Activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -108,62 +110,27 @@ public class Register extends AppCompatActivity {
                     StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
                         @Override
                         public void onResponse(String response) {
-                            Firebase reference = new Firebase("https://androidchatapp-7aaaa.firebaseio.com/users");
+                            Firebase reference = new Firebase(
+                                    "https://androidchatapp-7aaaa.firebaseio.com/users");
                             if(response.equals("null")) {
-
                                 //handle validation
-
-                                reference.child(user).child("password").setValue(pass);
-                                reference.child(user).child("codeforcesHandle").setValue(cf);
-                                reference.child(user).child("spojHandle").setValue(sp);
-                                reference.child(user).child("emailId").setValue(emailId);
-                                Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
-                                UserDetails.username = user;
-                                UserDetails.password = pass;
-                                UserDetails.codeforcesHandle = cf;
-                                UserDetails.spojHandle = sp;
-                                UserDetails.emailId = emailId;
-
                                 djangoConnect(reference);
-
-                                session.createLoginSession(user, pass, cf, sp, emailId,
-                                        UserDetails.codeforcesRating, UserDetails.spojRank);
-                                Intent i = new Intent(Register.this, Users.class);
-                                startActivity(i);
                             } else {
                                 try {
                                     JSONObject obj = new JSONObject(response);
 
                                     if (!obj.has(user)) {
-
                                         //handle validation
-
-                                        reference.child(user).child("password").setValue(pass);
-                                        reference.child(user).child("codeforcesHandle").setValue(cf);
-                                        reference.child(user).child("spojHandle").setValue(sp);
-                                        reference.child(user).child("emailId").setValue(emailId);
-                                        Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
-                                        UserDetails.username = user;
-                                        UserDetails.password = pass;
-                                        UserDetails.codeforcesHandle = cf;
-                                        UserDetails.spojHandle = sp;
-                                        UserDetails.emailId = emailId;
-
                                         djangoConnect(reference);
-
-                                        session.createLoginSession(user, pass, cf, sp, emailId,
-                                                UserDetails.codeforcesRating, UserDetails.spojRank);
-                                        Intent i = new Intent(Register.this, Users.class);
-                                        startActivity(i);
                                     } else {
-                                        Toast.makeText(Register.this, "username already exists", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(Register.this,
+                                                "username already exists", Toast.LENGTH_LONG).show();
                                     }
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
-
                             pd.dismiss();
                         }
 
@@ -185,37 +152,78 @@ public class Register extends AppCompatActivity {
     void djangoConnect(final Firebase reference){
         final Gson gson = new Gson();
 
+        final ProgressDialog pd = new ProgressDialog(Register.this);
+        pd.setMessage("Fetching Data...");
+        pd.show();
         //IP of aditya ambikesh for net
-        String url = "http://192.168.43.190:8000/cp/register/?uname=" + UserDetails.username +
-                "&spjHandle=" + UserDetails.spojHandle + "&cfHandle=" + UserDetails.codeforcesHandle;
+        String url = "http://172.16.97.116:8000/cp/register/?uname=" + user +
+                "&spjHandle=" + sp + "&cfHandle=" + cf;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                url,
-                null,
+                url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try{
                             ratings = gson.fromJson(response.toString(), Ratings.class);
-                            UserDetails.codeforcesRating = ratings.getCfRating();
-                            UserDetails.spojRank = ratings.getSpjRating();
-                            reference.child(user).child("codeforcesRating").setValue(UserDetails.codeforcesRating);
-                            reference.child(user).child("spojRank").setValue(UserDetails.spojRank);
-
-                            Toast.makeText(Register.this, response.toString(), Toast.LENGTH_LONG).show();
-
+                            Toast.makeText(Register.this, response.toString(),
+                                    Toast.LENGTH_LONG).show();
+                            String cfR, spjR;
+                            cfR = ratings.getCfRating();
+                            spjR = ratings.getSpjRating();
+                            if(cfR.equals("error") || spjR.equals("error")){
+                                AlertDialog.Builder adb = new AlertDialog.Builder(Register.this);
+                                adb.setTitle("Error");
+                                adb.setMessage("Invalid user handles!");
+                                adb.show();
+                            }else {
+                                UserDetails.codeforcesRating = cfR;
+                                UserDetails.spojRank = spjR;
+                                reference.child(user).child("codeforcesRating").setValue(cfR);
+                                reference.child(user).child("spojRank").setValue(spjR);
+                                firebaseEntry(reference);
+                            }
                         }catch (Exception e){
                             e.printStackTrace();
                         }
+                        pd.dismiss();
                     }
                 },
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
-                        Log.d("TAG","onError");
+                        Log.d("TAG",error.toString());
+                        pd.dismiss();
                     }
                 }
         );
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue rQ = Volley.newRequestQueue(Register.this);
         rQ.add(jsonObjectRequest);
+    }
+
+    void firebaseEntry(Firebase reference){
+        reference.child(user).child("password").setValue(pass);
+        reference.child(user).child("codeforcesHandle").setValue(cf);
+        reference.child(user).child("spojHandle").setValue(sp);
+        reference.child(user).child("emailId").setValue(emailId);
+        //Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
+        UserDetails.username = user;
+        UserDetails.password = pass;
+        UserDetails.codeforcesHandle = cf;
+        UserDetails.spojHandle = sp;
+        UserDetails.emailId = emailId;
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(Register.this);
+        adb.setTitle("Successfully Registered");
+        adb.setMessage("Codeforces Rating : " + UserDetails.codeforcesRating +
+                "/nSpoj Rank : " + UserDetails.spojRank);
+        adb.show();
+
+        session.createLoginSession(user, pass, cf, sp, emailId,
+                UserDetails.codeforcesRating, UserDetails.spojRank);
+        Intent i = new Intent(Register.this, Users.class);
+        startActivity(i);
     }
 }

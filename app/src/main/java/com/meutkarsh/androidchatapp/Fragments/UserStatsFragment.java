@@ -68,7 +68,7 @@ public class UserStatsFragment extends Fragment {
         questions = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
-        String url = "http://192.168.43.190:8000/cp/spoj/handle=ty_samurai97&uname=tanay";
+        String url = R.string.IP + "/cp/spoj/handle=ty_samurai97&uname=tanay";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 url, null,
