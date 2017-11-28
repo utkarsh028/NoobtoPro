@@ -25,11 +25,9 @@ public class SessionManagement {
     private static final String KEY_NAME = "name";
     private static final String KEY_PASSWORD = "pass";
     private static final String KEY_CF = "codeforces";
-    private static final String KEY_CC = "codechef";
     private static final String KEY_SP = "spoj";
     private static final String KEY_EMAIL = "emailId";
     private static final String KEY_CF_RATING = "codeforcesRating";
-    private static final String KEY_CC_RATING = "codechefRating";
     private static final String KEY_SP_RANK = "spojRank";
 
     public SessionManagement(Context context) {
@@ -38,17 +36,15 @@ public class SessionManagement {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String name, String pass, String cf, String cc, String sp,
-                                   String email, String cfRating, String ccRating, String spjRank) {
+    public void createLoginSession(String name, String pass, String cf, String sp,
+                                   String email, String cfRating, String spjRank) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_PASSWORD, pass);
         editor.putString(KEY_CF, cf);
-        editor.putString(KEY_CC, cc);
         editor.putString(KEY_SP, sp);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_CF_RATING, cfRating);
-        editor.putString(KEY_CC_RATING, ccRating);
         editor.putString(KEY_SP_RANK, spjRank);
         editor.commit();
     }
@@ -62,11 +58,9 @@ public class SessionManagement {
             UserDetails.username = pref.getString(KEY_NAME, null);
             UserDetails.password = pref.getString(KEY_PASSWORD, null);
             UserDetails.codeforcesHandle = pref.getString(KEY_CF, null);
-            UserDetails.codechefHandle = pref.getString(KEY_CC, null);
             UserDetails.spojHandle = pref.getString(KEY_SP, null);
             UserDetails.emailId = pref.getString(KEY_EMAIL, null);
             UserDetails.codeforcesRating = pref.getString(KEY_CF_RATING, null);
-            UserDetails.codechefRating = pref.getString(KEY_CC_RATING, null);
             UserDetails.spojRank = pref.getString(KEY_SP_RANK, null);
             Intent i = new Intent(_context, Users.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -89,11 +83,9 @@ public class SessionManagement {
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
         user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
         user.put(KEY_CF, pref.getString(KEY_CF, null));
-        user.put(KEY_CC, pref.getString(KEY_CC, null));
         user.put(KEY_SP, pref.getString(KEY_SP, null));
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
         user.put(KEY_CF_RATING, pref.getString(KEY_CF_RATING, null));
-        user.put(KEY_CC_RATING, pref.getString(KEY_CC_RATING, null));
         user.put(KEY_SP_RANK, pref.getString(KEY_SP_RANK, null));
         return user;
     }

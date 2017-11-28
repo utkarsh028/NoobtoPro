@@ -37,9 +37,9 @@ import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
 
-    EditText username, password, codeforces, codechef, spoj, email;
+    EditText username, password, codeforces, spoj, email;
     Button registerButton;
-    String user, pass, cf, cc, sp, emailId;
+    String user, pass, cf, sp, emailId;
     TextView login;
     SessionManagement session;
     Ratings  ratings;
@@ -53,7 +53,6 @@ public class Register extends AppCompatActivity {
         password = (EditText)findViewById(R.id.password);
 
         codeforces = (EditText) findViewById(R.id.codeforces);
-        codechef = (EditText) findViewById(R.id.codechef);
         spoj = (EditText) findViewById(R.id.spoj);
         email = (EditText) findViewById(R.id.email_id);
 
@@ -78,7 +77,6 @@ public class Register extends AppCompatActivity {
                 user = username.getText().toString();
                 pass = password.getText().toString();
                 cf = codeforces.getText().toString();
-                cc = codechef.getText().toString();
                 sp = spoj.getText().toString();
                 emailId = email.getText().toString();
                 if(user.equals("")){
@@ -117,21 +115,19 @@ public class Register extends AppCompatActivity {
 
                                 reference.child(user).child("password").setValue(pass);
                                 reference.child(user).child("codeforcesHandle").setValue(cf);
-                                reference.child(user).child("codechefHandle").setValue(cc);
                                 reference.child(user).child("spojHandle").setValue(sp);
                                 reference.child(user).child("emailId").setValue(emailId);
                                 Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
                                 UserDetails.username = user;
                                 UserDetails.password = pass;
                                 UserDetails.codeforcesHandle = cf;
-                                UserDetails.codechefHandle = cc;
                                 UserDetails.spojHandle = sp;
                                 UserDetails.emailId = emailId;
 
                                 djangoConnect(reference);
 
-                                session.createLoginSession(user, pass, cf, cc, sp, emailId,
-                                        UserDetails.codeforcesRating, UserDetails.codechefRating, UserDetails.spojRank);
+                                session.createLoginSession(user, pass, cf, sp, emailId,
+                                        UserDetails.codeforcesRating, UserDetails.spojRank);
                                 Intent i = new Intent(Register.this, Users.class);
                                 startActivity(i);
                             } else {
@@ -144,21 +140,19 @@ public class Register extends AppCompatActivity {
 
                                         reference.child(user).child("password").setValue(pass);
                                         reference.child(user).child("codeforcesHandle").setValue(cf);
-                                        reference.child(user).child("codechefHandle").setValue(cc);
                                         reference.child(user).child("spojHandle").setValue(sp);
                                         reference.child(user).child("emailId").setValue(emailId);
                                         Toast.makeText(Register.this, "registration successful", Toast.LENGTH_LONG).show();
                                         UserDetails.username = user;
                                         UserDetails.password = pass;
                                         UserDetails.codeforcesHandle = cf;
-                                        UserDetails.codechefHandle = cc;
                                         UserDetails.spojHandle = sp;
                                         UserDetails.emailId = emailId;
 
                                         djangoConnect(reference);
 
-                                        session.createLoginSession(user, pass, cf, cc, sp, emailId,
-                                                UserDetails.codeforcesRating, UserDetails.codechefRating, UserDetails.spojRank);
+                                        session.createLoginSession(user, pass, cf, sp, emailId,
+                                                UserDetails.codeforcesRating, UserDetails.spojRank);
                                         Intent i = new Intent(Register.this, Users.class);
                                         startActivity(i);
                                     } else {
@@ -193,8 +187,7 @@ public class Register extends AppCompatActivity {
 
         //IP of aditya ambikesh for net
         String url = "http://192.168.43.190:8000/cp/register/?uname=" + UserDetails.username +
-                "&spjHandle=" + UserDetails.spojHandle + "&cfHandle=" + UserDetails.codeforcesHandle +
-                "&ccHandle=" + UserDetails.codechefHandle;
+                "&spjHandle=" + UserDetails.spojHandle + "&cfHandle=" + UserDetails.codeforcesHandle;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 url,
                 null,
@@ -204,10 +197,8 @@ public class Register extends AppCompatActivity {
                         try{
                             ratings = gson.fromJson(response.toString(), Ratings.class);
                             UserDetails.codeforcesRating = ratings.getCfRating();
-                            UserDetails.codechefRating = ratings.getCcRating();
                             UserDetails.spojRank = ratings.getSpjRating();
                             reference.child(user).child("codeforcesRating").setValue(UserDetails.codeforcesRating);
-                            reference.child(user).child("codechefRating").setValue(UserDetails.codechefRating);
                             reference.child(user).child("spojRank").setValue(UserDetails.spojRank);
 
                             Toast.makeText(Register.this, response.toString(), Toast.LENGTH_LONG).show();

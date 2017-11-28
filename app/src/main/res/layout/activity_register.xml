@@ -56,17 +56,6 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/codechef"
-        android:inputType="text"
-        android:maxLines="1"
-        android:hint="Codechef handle"
-        android:layout_marginBottom="10dp"
-        android:textSize="25sp"
-        style="@style/editTextStyle"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/spoj"
         android:inputType="text"
         android:maxLines="1"

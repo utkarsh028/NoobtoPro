@@ -25,8 +25,8 @@ import java.util.regex.Pattern;
 
 public class UpdateDetails extends AppCompatActivity {
 
-    EditText oldPassword, newPassword, codeforces, codechef, spoj, email;
-    String user, oldPass, newPass, cf, cc, sp, emailId;
+    EditText oldPassword, newPassword, codeforces, spoj, email;
+    String user, oldPass, newPass, cf, sp, emailId;
     Button update;
     SessionManagement session;
 
@@ -38,7 +38,6 @@ public class UpdateDetails extends AppCompatActivity {
         oldPassword = (EditText) findViewById(R.id.old_password);
         newPassword = (EditText) findViewById(R.id.new_password);
         codeforces = (EditText) findViewById(R.id.codeforces);
-        codechef = (EditText) findViewById(R.id.codechef);
         spoj = (EditText) findViewById(R.id.spoj);
         email = (EditText) findViewById(R.id.email_id);
         update = (Button) findViewById(R.id.update);
@@ -58,7 +57,6 @@ public class UpdateDetails extends AppCompatActivity {
                     user = UserDetails.username;
                     newPass = newPassword.getText().toString();
                     cf = codeforces.getText().toString();
-                    cc = codechef.getText().toString();
                     sp = spoj.getText().toString();
                     emailId = email.getText().toString();
                     if(!newPass.equals("")  && newPass.length() < 5){
@@ -75,7 +73,6 @@ public class UpdateDetails extends AppCompatActivity {
 
                     if(newPass.equals(""))  newPass = UserDetails.password;
                     if(cf.equals(""))   cf = UserDetails.codeforcesHandle;
-                    if(cc.equals(""))   cc = UserDetails.codechefHandle;
                     if(sp.equals(""))   sp = UserDetails.spojHandle;
                     if(emailId.equals(""))  emailId = UserDetails.emailId;
 
@@ -91,19 +88,17 @@ public class UpdateDetails extends AppCompatActivity {
 
                             reference.child(user).child("password").setValue(newPass);
                             reference.child(user).child("codeforcesHandle").setValue(cf);
-                            reference.child(user).child("codechefHandle").setValue(cc);
                             reference.child(user).child("spojHandle").setValue(sp);
                             reference.child(user).child("emailId").setValue(emailId);
                             Toast.makeText(UpdateDetails.this, "Updated successful", Toast.LENGTH_LONG).show();
 
                             UserDetails.password = newPass;
                             UserDetails.codeforcesHandle = cf;
-                            UserDetails.codechefHandle = cc;
                             UserDetails.spojHandle = sp;
                             UserDetails.emailId = emailId;
 
-                            session.createLoginSession(user, newPass, cf, cc, sp, emailId,
-                                    UserDetails.codeforcesRating, UserDetails.codechefRating, UserDetails.spojRank);
+                            session.createLoginSession(user, newPass, cf, sp, emailId,
+                                    UserDetails.codeforcesRating, UserDetails.spojRank);
                             Intent i = new Intent(UpdateDetails.this, Users.class);
                             startActivity(i);
 

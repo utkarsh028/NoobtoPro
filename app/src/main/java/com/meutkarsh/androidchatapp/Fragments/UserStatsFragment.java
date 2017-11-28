@@ -20,6 +20,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 import com.meutkarsh.androidchatapp.POJO.Question;
 import com.meutkarsh.androidchatapp.R;
@@ -52,7 +53,7 @@ public class UserStatsFragment extends Fragment {
         questionRecyclerView = (RecyclerView) rootView.findViewById(R.id.userProblemRV);
         pieChart = (PieChart) rootView.findViewById(R.id.piechart);
         floatingActionButton = (FloatingActionButton) rootView.findViewById(R.id.floatbutton);
-
+        setChart();
         return rootView;
     }
 
@@ -70,8 +71,7 @@ public class UserStatsFragment extends Fragment {
         String url = "http://192.168.43.190:8000/cp/spoj/handle=ty_samurai97&uname=tanay";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                url,
-                null,
+                url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -80,7 +80,8 @@ public class UserStatsFragment extends Fragment {
                             for(int i=0;i<response.length();i++){
                                 JSONObject obj = response.getJSONObject(i);
 
-                                questions.add( new Question(obj.getString("title"),obj.getString("link"),obj.getBoolean("success")) );
+                                questions.add( new Question(obj.getString("title"),
+                                        obj.getString("link"),obj.getBoolean("success")) );
 
                             }
                         }catch (JSONException e){
@@ -107,24 +108,21 @@ public class UserStatsFragment extends Fragment {
         requestQueue.add(jsonArrayRequest);
         Log.d("TAG","onCreateView");
 
-
-
     }
 
     void setChart(){
-        int solved=0,unsolved=0;
+        int solved = 0, unsolved = 0;
         for (int i = 0; i < questions.size(); i++ ){
             if(questions.get(i).getSuccess()) solved++;
         }
         unsolved = questions.size() - solved;
 
-        ArrayList<PieEntry> entries= new ArrayList<>();
+        ArrayList<PieEntry> entries = new ArrayList<>();
 
-        entries.add( new PieEntry(unsolved ) );
-        entries.add( new PieEntry(solved  ));
+        entries.add( new PieEntry(10) );
+        entries.add( new PieEntry(20));
         PieDataSet set = new PieDataSet(entries, "Problem Status");
-        set.setColors(new int[] {R.color.red,R.color.green});
-//        set.setColor(R.color.red);
+        set.setColors(ColorTemplate.COLORFUL_COLORS); // set the color
         PieData data = new PieData(set);
         pieChart.setData(data);
     }

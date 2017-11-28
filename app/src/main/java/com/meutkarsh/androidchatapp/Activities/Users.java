@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.meutkarsh.androidchatapp.Fragments.UserStatsFragment;
 import com.meutkarsh.androidchatapp.Utils.CustomPagerAdapter;
 import com.meutkarsh.androidchatapp.Fragments.BlogFragment;
 import com.meutkarsh.androidchatapp.Fragments.UserFragment;
@@ -76,6 +77,9 @@ public class Users extends AppCompatActivity {
 
         BlogFragment blogFragment = new BlogFragment();
         cpa.addFrag(blogFragment, "Blogs");
+
+        UserStatsFragment userStats = new UserStatsFragment();
+        cpa.addFrag(userStats, "Profile");
 
         vp.setAdapter(cpa);
     }
