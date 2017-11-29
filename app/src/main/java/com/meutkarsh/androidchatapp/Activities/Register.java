@@ -51,6 +51,8 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        //Toast.makeText(this, getString(R.string.IP), Toast.LENGTH_SHORT).show();
+
         username = (EditText)findViewById(R.id.username);
         password = (EditText)findViewById(R.id.password);
 
@@ -155,8 +157,8 @@ public class Register extends AppCompatActivity {
         final ProgressDialog pd = new ProgressDialog(Register.this);
         pd.setMessage("Fetching Data...");
         pd.show();
-        //IP of aditya ambikesh for net
-        String url = "http://172.16.97.116:8000/cp/register/?uname=" + user +
+        //IP of aditya ambishek for net
+        String url = getString(R.string.IP) + "/cp/register/?uname=" + user +
                 "&spjHandle=" + sp + "&cfHandle=" + cf;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 url, null,
@@ -165,8 +167,7 @@ public class Register extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try{
                             ratings = gson.fromJson(response.toString(), Ratings.class);
-                            Toast.makeText(Register.this, response.toString(),
-                                    Toast.LENGTH_LONG).show();
+                            //Toast.makeText(Register.this, response.toString(), Toast.LENGTH_LONG).show();
                             String cfR, spjR;
                             cfR = ratings.getCfRating();
                             spjR = ratings.getSpjRating();

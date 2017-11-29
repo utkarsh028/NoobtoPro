@@ -89,9 +89,6 @@ public class CalendarFragment extends Fragment {
 
             }
         });
-
-
-
         return rootView;
     }
 
@@ -121,9 +118,6 @@ public class CalendarFragment extends Fragment {
             holder.contestName.setText(ce.getEvent());
             holder.duration.setText(ce.getDuration());
             holder.seTime.setText(ce.getStartEndTime());
-
-
-
         }
 
         @Override

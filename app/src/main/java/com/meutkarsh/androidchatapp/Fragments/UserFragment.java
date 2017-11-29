@@ -11,18 +11,21 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.meutkarsh.androidchatapp.Activities.Chat;
-import com.meutkarsh.androidchatapp.R;
 import com.meutkarsh.androidchatapp.POJO.UserDetails;
+import com.meutkarsh.androidchatapp.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,9 +38,11 @@ public class UserFragment extends Fragment {
 
     ListView usersList;
     TextView noUsersText;
-    ArrayList<String> al = new ArrayList<>();
+    ArrayList<String> users, tags;
     int totalUsers = 0;
     ProgressDialog pd;
+    Spinner uSpinner;
+    ArrayAdapter<String> adapter;
 
     public UserFragment() {
         // Required empty public constructor
@@ -46,15 +51,27 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Toast.makeText(UserFragment.super.getContext(), "onCreate", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        //Toast.makeText(UserFragment.super.getContext(), "onCreateView", Toast.LENGTH_SHORT).show();
+
+        users = new ArrayList<>();
+        tags = new ArrayList<>();
+
         View rootView = inflater.inflate(R.layout.fragment_user, container, false);
 
         usersList = (ListView)rootView.findViewById(R.id.users_list);
         noUsersText = (TextView)rootView.findViewById(R.id.no_users_text);
+        uSpinner = (Spinner) rootView.findViewById(R.id.tag_spinner);
+        filter();
+
+        adapter = new ArrayAdapter<String>(UserFragment.super.getContext(),
+                android.R.layout.simple_list_item_1, users);
+        usersList.setAdapter(adapter);
 
         pd = new ProgressDialog(UserFragment.super.getContext());
         pd.setMessage("Loading...");
@@ -69,7 +86,7 @@ public class UserFragment extends Fragment {
         },new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                System.out.println("" + volleyError);
+                Log.d("Utkarsh" , ""+volleyError);
             }
         });
 
@@ -81,7 +98,7 @@ public class UserFragment extends Fragment {
         usersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                UserDetails.chatWith = al.get(position);
+                UserDetails.chatWith = users.get(position);
                 Intent i = new Intent(UserFragment.super.getContext(), Chat.class);
                 startActivity(i);
             }
@@ -95,9 +112,10 @@ public class UserFragment extends Fragment {
             JSONObject obj = new JSONObject(response);
             Iterator it = obj.keys();
             String key = "";
+            users.clear();
             while(it.hasNext()){
                 key = it.next().toString();
-                if( !key.equals( UserDetails.username ) )   al.add(key);
+                if( !key.equals( UserDetails.username ) )   users.add(key);
                 totalUsers++;
             }
         } catch (JSONException e) {
@@ -109,9 +127,69 @@ public class UserFragment extends Fragment {
         } else {
             noUsersText.setVisibility(View.GONE);
             usersList.setVisibility(View.VISIBLE);
-            usersList.setAdapter(new ArrayAdapter<String>(UserFragment.super.getContext(), android.R.layout.simple_list_item_1, al));
+            adapter.notifyDataSetChanged();
         }
         pd.dismiss();
+    }
+
+    void filter(){
+
+        tags.add("Select tag to filter");
+        tags.add("implementation"); tags.add("binarySearch");   tags.add("dp");
+        tags.add("gameTheory");    tags.add("graphs");         tags.add("greedy");
+        tags.add("hashing");        tags.add("math");           tags.add("string");
+        tags.add("dataStructures");
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(UserFragment.super.getContext(),
+                android.R.layout.simple_spinner_item, tags);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        uSpinner.setAdapter(adapter);
+
+        uSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i == 0)  return;
+                String tag = tags.get(i);
+                String url = getString(R.string.IP) + "/cp/sortUsers/?tag=" + tag;
+
+                JsonArrayRequest jsonArray = new JsonArrayRequest(
+                        Request.Method.GET,
+                        url, null,
+                        new Response.Listener<JSONArray>() {
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                sort(response);
+                            }
+                        },
+                        new Response.ErrorListener(){
+                            @Override
+                            public void onErrorResponse(VolleyError error){
+                                Log.d("TAG","Volley Error");
+                            }
+                        }
+                );
+                RequestQueue rQ = Volley.newRequestQueue(UserFragment.super.getContext());
+                rQ.add(jsonArray);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    void sort(JSONArray response){
+        try{
+            users.clear();
+            for(int i = 0; i < response.length(); i++){
+                JSONObject obj = response.getJSONObject(i);
+                String name = obj.getString("uName");
+                if(!name.equals(UserDetails.username))  users.add(name);
+            }
+            adapter.notifyDataSetChanged();
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
     }
 
 }

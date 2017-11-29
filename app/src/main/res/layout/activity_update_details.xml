@@ -15,7 +15,7 @@
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="Update Details"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold"/>
 
     <EditText
@@ -25,7 +25,9 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:hint="Old Password"
-        android:layout_marginBottom="7dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+        style="@style/editTextStyle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -34,7 +36,9 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:hint="New Password"
-        android:layout_marginBottom="7dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+        style="@style/editTextStyle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -43,7 +47,9 @@
         android:inputType="text"
         android:maxLines="1"
         android:hint="Codeforces handle"
-        android:layout_marginBottom="7dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="25sp"
+        style="@style/editTextStyle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -52,7 +58,9 @@
         android:inputType="text"
         android:maxLines="1"
         android:hint="Spoj handle"
-        android:layout_marginBottom="7dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="25sp"
+        style="@style/editTextStyle"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -61,20 +69,23 @@
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:hint="Email id"
-        android:layout_marginBottom="7dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="25sp"
+        style="@style/editTextStyle"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Update"
         android:id="@+id/update"
-        android:layout_marginBottom="18dp"/>
+        android:layout_marginBottom="20dp"
+        style="@style/Button"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Please enter old password and the fields you want to update."
-        android:textSize="15sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>
