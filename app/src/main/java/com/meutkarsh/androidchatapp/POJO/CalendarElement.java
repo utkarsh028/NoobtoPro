@@ -5,7 +5,14 @@ package com.meutkarsh.androidchatapp.POJO;
  */
 
 public class CalendarElement {
-    String startEndTime,duration,event,link;
+    String startEndTime, duration, event, link;
+
+    public CalendarElement(String startEndTime, String duration, String event, String link) {
+        this.startEndTime = startEndTime;
+        this.duration = duration;
+        this.event = event;
+        this.link = link;
+    }
 
     public String getStartEndTime() {
         return startEndTime;
@@ -39,11 +46,4 @@ public class CalendarElement {
         this.link = link;
     }
 
-    public CalendarElement(String startEndTime, String duration, String event, String link) {
-
-        this.startEndTime = startEndTime;
-        this.duration = duration;
-        this.event = event;
-        this.link = link;
-    }
 }
