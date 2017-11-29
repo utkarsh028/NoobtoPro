@@ -9,7 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.meutkarsh.androidchatapp.Fragments.CalendarFragment;
 import com.meutkarsh.androidchatapp.Fragments.UserStatsFragment;
+import com.meutkarsh.androidchatapp.POJO.CalendarElement;
 import com.meutkarsh.androidchatapp.Utils.CustomPagerAdapter;
 import com.meutkarsh.androidchatapp.Fragments.BlogFragment;
 import com.meutkarsh.androidchatapp.Fragments.UserFragment;
@@ -75,11 +77,16 @@ public class Users extends AppCompatActivity {
         //ClassName cn = new ClassName();
         //cpa.addFrag(cn, "title")
 
+
         BlogFragment blogFragment = new BlogFragment();
         cpa.addFrag(blogFragment, "Blogs");
 
         UserStatsFragment userStats = new UserStatsFragment();
         cpa.addFrag(userStats, "Profile");
+
+        CalendarFragment calendarFragment = new CalendarFragment();
+        cpa.addFrag(calendarFragment,"Calendar");
+
 
         vp.setAdapter(cpa);
     }
