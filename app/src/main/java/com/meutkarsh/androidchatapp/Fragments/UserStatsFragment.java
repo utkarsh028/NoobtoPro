@@ -1,6 +1,7 @@
 package com.meutkarsh.androidchatapp.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
+import com.meutkarsh.androidchatapp.Activities.ToDoList;
 import com.meutkarsh.androidchatapp.POJO.ComparisonData;
 import com.meutkarsh.androidchatapp.POJO.ProfileData;
 import com.meutkarsh.androidchatapp.POJO.Question;
@@ -41,11 +43,10 @@ public class UserStatsFragment extends Fragment {
 
     RequestQueue requestQueue;
     PieChart pieChart,tagpieChart;
-    Button refreshStats ;
+    Button refreshStats, toDoList;
     ProfileData profileData;
-    TextView profileUname,profileCfRating,profileSpjRating;
-    public UserStatsFragment() {
-    }
+    TextView profileUname, profileCfRating, profileSpjRating;
+    public UserStatsFragment() { }
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -57,7 +58,6 @@ public class UserStatsFragment extends Fragment {
         profileUname = (TextView) rootView.findViewById(R.id.profileUname);
         profileCfRating = (TextView) rootView.findViewById(R.id.profileCfRating);
         profileSpjRating = (TextView) rootView.findViewById(R.id.profileSpjRating);
-       // Log.d("TAG","iiiii"+UserDetails.codeforcesRating+" "+UserDetails.spojRank);
         String profileName, profileCF, profileSP;
         profileName = "Username : " + UserDetails.username;
         profileCF = "Codeforces Rating : " + UserDetails.codeforcesRating;
@@ -66,15 +66,21 @@ public class UserStatsFragment extends Fragment {
         profileCfRating.setText(profileCF);
         profileSpjRating.setText(profileSP);
 
+        toDoList = (Button) rootView.findViewById(R.id.toDoList);
+        toDoList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(UserStatsFragment.super.getContext(), ToDoList.class);
+                startActivity(i);
+            }
+        });
+
         refreshStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 final Gson gson = new Gson();
-
                 requestQueue = Volley.newRequestQueue(getContext());
-
-
                 RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
                 String url = getString(R.string.IP) + "/cp/getUserProfileData/?uName=" + UserDetails.username;
@@ -97,28 +103,18 @@ public class UserStatsFragment extends Fragment {
                             }
                         }
                 );
-
                 requestQueue.add(jsonObjectRequest);
-
             }
         });
         return rootView;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("TAG","onCreate");
-
-        Log.d("TAG","onCreateView");
-
-
     }
 
     void setChart(ArrayList<Question> questionArrayList){
-
-
         ArrayList<Entry> entries = new ArrayList<>();
         pieChart.setUsePercentValues(true);
 
@@ -138,41 +134,31 @@ public class UserStatsFragment extends Fragment {
         PieData data = new PieData(xVals,set);
         pieChart.setData(data);
 
-
     }
-
-
 
     void setTagChart(ArrayList<ComparisonData> comparisonDataArrayList){
 
         tagpieChart.setUsePercentValues(true);
-
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
-
-        for(int i = 0;i<comparisonDataArrayList.size();i++){
+        for(int i = 0; i < comparisonDataArrayList.size(); i++){
 
             yvalues.add(new Entry(comparisonDataArrayList.get(i).getCount(),i));
         }
 
         PieDataSet dataSet = new PieDataSet(yvalues,"Questions by Tags");
-
         ArrayList<String> xVals = new ArrayList<String>();
-
-        for(int i = 0;i<comparisonDataArrayList.size();i++){
+        for(int i = 0; i < comparisonDataArrayList.size(); i++){
 
             xVals.add(comparisonDataArrayList.get(i).getType());
         }
 
         tagpieChart.setDrawHoleEnabled(false);
-
         PieData data = new PieData(xVals,dataSet);
-
         data.setValueFormatter(new PercentFormatter());
 
         tagpieChart.setData(data);
         dataSet.setColors(ColorTemplate.JOYFUL_COLORS); // set the color
        // PieData tagData = new PieData(tagSet);
        // tagpieChart.setData(tagData);
-
     }
 }

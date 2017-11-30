@@ -3,25 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="7"
+    android:weightSum="6"
     tools:context="com.meutkarsh.androidchatapp.Fragments.UserStatsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:weightSum="3">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:id="@+id/profileUname"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:id="@+id/profileUname"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -29,8 +28,7 @@
             android:layout_weight="1"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:id="@+id/profileCfRating"
-            />
+            android:id="@+id/profileCfRating"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -38,11 +36,9 @@
             android:textSize="20dp"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:id="@+id/profileSpjRating"
-            />
+            android:id="@+id/profileSpjRating"/>
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,24 +59,30 @@
             android:layout_height="250dp"
             android:layout_weight="1" />
 
-
     </LinearLayout>
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <Button
             android:id="@+id/refreshChart"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:gravity="center"
+            android:layout_weight="1"
             style="@style/Button"
-            android:text="Refresh Statistics" />
+            android:text="Refresh Statistics"/>
+        <Button
+            android:id="@+id/toDoList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/Button"
+            android:text="To Do List"/>
 
-    </RelativeLayout>
+    </LinearLayout>
+
 </LinearLayout>
