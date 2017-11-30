@@ -1,36 +1,86 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="7"
     tools:context="com.meutkarsh.androidchatapp.Fragments.UserStatsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/userProblemRV"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:weightSum="3">
 
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/piechart"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:id="@+id/profileUname"
+        />
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginStart="320dp"
-        android:id="@+id/floatbutton"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:id="@+id/profileCfRating"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:id="@+id/profileSpjRating"
+            />
+
+    </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-</RelativeLayout>
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/piechart"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            android:layout_weight="1" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/tagpiechart"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+
+        <Button
+            android:id="@+id/refreshChart"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/Button"
+            android:text="Refresh Statistics" />
+
+    </RelativeLayout>
+</LinearLayout>

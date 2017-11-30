@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
                                         String userCF = obj.getJSONObject(user).getString("codeforcesHandle");
                                         String userSP = obj.getJSONObject(user).getString("spojHandle");
                                         String userEmailId = obj.getJSONObject(user).getString("emailId");
-                                        String userCfRating = ""; //obj.getJSONObject(user).getString("codeforcesRating");
-                                        String userSpjRank = ""; //obj.getJSONObject(user).getString("spojRank");
+                                        String userCfRating = obj.getJSONObject(user).getString("codeforcesRating");
+                                        String userSpjRank = obj.getJSONObject(user).getString("spojRank");
                                         Log.d("Utkarsh", "Login");
                                         if(userpass.equals(pass)){
                                             UserDetails.username = user;

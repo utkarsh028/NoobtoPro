@@ -5,7 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
-    <string name="IP">http://100.112.253.158:8000</string>
+    <string name="IP">http://192.168.43.190:8000</string>
 
     <string name="tag_prompt">Choose tag to filter</string>
 
