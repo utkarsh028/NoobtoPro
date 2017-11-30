@@ -26,7 +26,7 @@
         android:maxLines="1"
         android:hint="Old Password"
         android:layout_marginBottom="10dp"
-        android:textSize="20sp"
+        android:textSize="30sp"
         style="@style/editTextStyle"/>
 
     <EditText
@@ -37,7 +37,7 @@
         android:maxLines="1"
         android:hint="New Password"
         android:layout_marginBottom="10dp"
-        android:textSize="20sp"
+        android:textSize="30sp"
         style="@style/editTextStyle"/>
 
     <EditText
@@ -48,7 +48,7 @@
         android:maxLines="1"
         android:hint="Codeforces handle"
         android:layout_marginBottom="10dp"
-        android:textSize="25sp"
+        android:textSize="30sp"
         style="@style/editTextStyle"/>
 
     <EditText
@@ -59,7 +59,7 @@
         android:maxLines="1"
         android:hint="Spoj handle"
         android:layout_marginBottom="10dp"
-        android:textSize="25sp"
+        android:textSize="30sp"
         style="@style/editTextStyle"/>
 
     <EditText
@@ -70,7 +70,7 @@
         android:maxLines="1"
         android:hint="Email id"
         android:layout_marginBottom="10dp"
-        android:textSize="25sp"
+        android:textSize="30sp"
         style="@style/editTextStyle"/>
 
     <Button

@@ -18,7 +18,6 @@ public class CustomPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void addFrag(Fragment fragment,String fragmentTitle){
-
         fragmentArrayList.add(fragment);
         fragmentTilteArr.add(fragmentTitle);
     }

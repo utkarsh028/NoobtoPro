@@ -17,7 +17,7 @@
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="Register"
-        android:textSize="30sp"
+        android:textSize="35sp"
         android:textStyle="bold"/>
 
     <EditText
@@ -28,7 +28,7 @@
         android:maxLines="1"
         android:hint="Username"
         android:layout_marginBottom="10dp"
-        android:textSize="25sp"
+        android:textSize="30sp"
         style="@style/editTextStyle"/>
 
     <EditText
@@ -39,7 +39,7 @@
         android:maxLines="1"
         android:hint="Password"
         android:layout_marginBottom="10dp"
-        android:textSize="20sp"
+        android:textSize="30sp"
         style="@style/editTextStyle"/>
 
     <EditText
@@ -50,7 +50,7 @@
         android:maxLines="1"
         android:hint="Codeforces handle"
         android:layout_marginBottom="10dp"
-        android:textSize="25sp"
+        android:textSize="30sp"
         style="@style/editTextStyle"/>
 
     <EditText
@@ -61,7 +61,7 @@
         android:maxLines="1"
         android:hint="Spoj handle"
         android:layout_marginBottom="10dp"
-        android:textSize="25sp"
+        android:textSize="30sp"
         style="@style/editTextStyle"/>
 
     <EditText
@@ -72,7 +72,7 @@
         android:maxLines="1"
         android:hint="Email id"
         android:layout_marginBottom="10dp"
-        android:textSize="25sp"
+        android:textSize="30sp"
         style="@style/editTextStyle"/>
 
     <Button
@@ -89,6 +89,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Back to login"
-        android:textSize="20sp" />
+        android:textSize="25sp" />
 
 </LinearLayout>

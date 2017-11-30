@@ -9,13 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.meutkarsh.androidchatapp.Fragments.CalendarFragment;
-import com.meutkarsh.androidchatapp.Fragments.UserStatsFragment;
-import com.meutkarsh.androidchatapp.POJO.CalendarElement;
-import com.meutkarsh.androidchatapp.Utils.CustomPagerAdapter;
 import com.meutkarsh.androidchatapp.Fragments.BlogFragment;
+import com.meutkarsh.androidchatapp.Fragments.CalendarFragment;
 import com.meutkarsh.androidchatapp.Fragments.UserFragment;
+import com.meutkarsh.androidchatapp.Fragments.UserStatsFragment;
 import com.meutkarsh.androidchatapp.R;
+import com.meutkarsh.androidchatapp.Utils.CustomPagerAdapter;
 import com.meutkarsh.androidchatapp.Utils.SessionManagement;
 
 /**
@@ -74,9 +73,6 @@ public class Users extends AppCompatActivity {
 
         UserFragment userFragment = new UserFragment();
         cpa.addFrag(userFragment,"Users Available");
-        //ClassName cn = new ClassName();
-        //cpa.addFrag(cn, "title")
-
 
         BlogFragment blogFragment = new BlogFragment();
         cpa.addFrag(blogFragment, "Blogs");

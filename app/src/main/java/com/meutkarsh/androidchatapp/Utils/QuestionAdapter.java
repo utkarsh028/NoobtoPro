@@ -36,15 +36,12 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = li.inflate( ( viewType==1) ? R.layout.solved_problem : R.layout.unsolved_problem
                 , parent,false);
-
-
         return new QuestionHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(QuestionHolder holder, int position) {
         Question question = questionList.get(position);
-
         holder.question.setText(question.getTitle());
     }
 
@@ -55,7 +52,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
     public class QuestionHolder extends RecyclerView.ViewHolder{
         public TextView question;
-
         public QuestionHolder(View itemView){
             super(itemView);
             this.question = (TextView) itemView.findViewById(R.id.questionid);
