@@ -45,7 +45,8 @@ public class CalendarFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.calendar_fragment, container, false);
         refreshButton = (Button) rootView.findViewById(R.id.refreshCalendar);
         calendarRV = (RecyclerView) rootView.findViewById(R.id.calendarRV);
@@ -116,7 +117,8 @@ public class CalendarFragment extends Fragment {
 
         @Override
         public CalendarHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater li = (LayoutInflater) CalendarFragment.super.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater li = (LayoutInflater) CalendarFragment.super.getContext().getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
             View itemView = li.inflate(R.layout.calendar_element, parent,false);
             return new CalendarHolder(itemView);
         }

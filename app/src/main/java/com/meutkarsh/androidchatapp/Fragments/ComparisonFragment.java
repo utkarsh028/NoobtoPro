@@ -1,5 +1,6 @@
 package com.meutkarsh.androidchatapp.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,16 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.meutkarsh.androidchatapp.POJO.UserComparison;
 import com.meutkarsh.androidchatapp.POJO.UserDetails;
 import com.meutkarsh.androidchatapp.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -41,7 +45,7 @@ public class ComparisonFragment extends Fragment {
     ArrayList<pair> data = new ArrayList<>();
     CompareDataRVAdapter adapter;
     RecyclerView compareRV ;
-    TextView userFirst, userSecond;
+    TextView userFirst, userSecond, userFirstRatings, userSecondRatings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,11 +57,51 @@ public class ComparisonFragment extends Fragment {
         userFirst.setText(UserDetails.username);
         userSecond.setText(UserDetails.chatWith);
 
+        userFirstRatings = (TextView) rootView.findViewById(R.id.user_one_ratings);
+        userSecondRatings = (TextView) rootView.findViewById(R.id.user_two_ratings);
+        String secondUserUrl = "https://androidchatapp-7aaaa.firebaseio.com/users/" + UserDetails.chatWith +".json";
+
+        final ProgressDialog pd = new ProgressDialog(ComparisonFragment.super.getContext());
+        pd.setMessage("Loading...");
+        pd.show();
+
+        StringRequest request = new StringRequest(Request.Method.GET, secondUserUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    String cfRating = obj.getString("codeforcesRating");
+                    String spojRating = obj.getString("spojRank");
+                    String firstRating = "Codeforces Rating = " + UserDetails.codeforcesRating +
+                            "\nSpoj Rank = " + UserDetails.spojRank;
+                    String secondRating = "Codeforces Rating = " + cfRating +
+                            "\nSpoj Rank = " + spojRating;
+                    userFirstRatings.setText(firstRating);
+                    userSecondRatings.setText(secondRating);
+                } catch (JSONException e) {
+                    Log.d("Utkarsh", "Firebase Error");
+                    e.printStackTrace();
+                }
+                pd.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Utkarsh", error.toString());
+                pd.dismiss();
+            }
+        }
+        );
+        RequestQueue rQ = Volley.newRequestQueue(ComparisonFragment.super.getContext());
+        rQ.add(request);
+
+
         compareRV = (RecyclerView) rootView.findViewById(R.id.compareRV);
         final Gson gson = new Gson();
         final RequestQueue requestQueue = Volley.newRequestQueue(ComparisonFragment.super.getContext());
 
-        String url = getString(R.string.IP) + "/cp/compare/?uName1=" + UserDetails.username + "&uName2=" + UserDetails.chatWith;
+        String url = getString(R.string.IP) + "/cp/compare/?uName1=" + UserDetails.username +
+                "&uName2=" + UserDetails.chatWith;
         JsonObjectRequest jsonObject = new JsonObjectRequest(
                 url, null,
                 new Response.Listener<JSONObject>() {

@@ -1,10 +1,8 @@
 package com.meutkarsh.androidchatapp.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,18 +10,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
-
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
@@ -32,10 +27,7 @@ import com.meutkarsh.androidchatapp.POJO.ProfileData;
 import com.meutkarsh.androidchatapp.POJO.Question;
 import com.meutkarsh.androidchatapp.POJO.UserDetails;
 import com.meutkarsh.androidchatapp.R;
-import com.meutkarsh.androidchatapp.Utils.QuestionAdapter;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -55,6 +47,7 @@ public class UserStatsFragment extends Fragment {
     public UserStatsFragment() {
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_user_stats, container, false);
@@ -65,11 +58,13 @@ public class UserStatsFragment extends Fragment {
         profileCfRating = (TextView) rootView.findViewById(R.id.profileCfRating);
         profileSpjRating = (TextView) rootView.findViewById(R.id.profileSpjRating);
        // Log.d("TAG","iiiii"+UserDetails.codeforcesRating+" "+UserDetails.spojRank);
-        profileUname.setText("Username : " + UserDetails.username);
-        profileCfRating.setText("Codeforces Rating : " + UserDetails.codeforcesRating);
-        profileSpjRating.setText("SPOJ Ranking : " + UserDetails.spojRank);
-
-
+        String profileName, profileCF, profileSP;
+        profileName = "Username : " + UserDetails.username;
+        profileCF = "Codeforces Rating : " + UserDetails.codeforcesRating;
+        profileSP = "SPOJ Ranking : " + UserDetails.spojRank;
+        profileUname.setText(profileName);
+        profileCfRating.setText(profileCF);
+        profileSpjRating.setText(profileSP);
 
         refreshStats.setOnClickListener(new View.OnClickListener() {
             @Override
