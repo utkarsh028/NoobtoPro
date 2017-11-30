@@ -51,13 +51,10 @@ public class UserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Toast.makeText(UserFragment.super.getContext(), "onCreate", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        //Toast.makeText(UserFragment.super.getContext(), "onCreateView", Toast.LENGTH_SHORT).show();
 
         users = new ArrayList<>();
         tags = new ArrayList<>();
